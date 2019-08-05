@@ -4,6 +4,8 @@ import router from 'router'
 import store from './store'
 import '../public/common.css'
 import '../public/css/iconfont/iconfont.css'
+import Swiper from 'swiper'
+import axios from 'axios'
 Vue.config.productionTip = false
 
 new Vue({

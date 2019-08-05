@@ -5,14 +5,22 @@ import goto from './goto'
 import shop from './shop'
 import servers from './servers'
 import mime from './mime'
+import sea from './sea'
+import deatil from './detail'
 Vue.use(VueRouter)
 
 export default new VueRouter({
   routes: [
+    {
+      path:'/',
+      redirect:"/home"
+    },
     home,
     shop,
     servers,
     goto,
-    mime
+    mime,
+    sea,
+    deatil
   ]
 })

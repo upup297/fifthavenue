@@ -57,6 +57,7 @@ export default {
     bottom: 0;
     left: 0;
     border-top: 1px solid #ccc;
+    z-index: 2;
 }
 #footer ul,#footer ul li{
     width: 100%;
@@ -75,7 +76,7 @@ export default {
 }
 #footer ul li i{
     font-size: 20px;
-    color: #ccc
+    /* color: #ccc */
 }
 #footer ul .router-link-active{
     color: #fff;
