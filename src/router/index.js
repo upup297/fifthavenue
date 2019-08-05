@@ -7,6 +7,7 @@ import servers from './servers'
 import mime from './mime'
 import sea from './sea'
 import deatil from './detail'
+import newproduct from './newproduct'
 Vue.use(VueRouter)
 
 export default new VueRouter({
@@ -21,6 +22,7 @@ export default new VueRouter({
     goto,
     mime,
     sea,
-    deatil
+    deatil,
+    newproduct
   ]
 })

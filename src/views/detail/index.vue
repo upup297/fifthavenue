@@ -63,10 +63,15 @@ export default {
         }
     },
     created(){
+        console.log(this)
         axios.get("https://apim.restful.5lux.com.cn/good/brand_detail/?id=47&cata_id=undefined")
         .then((data)=>{
             this.goodsList = data.data.data.goods_list
-            console.log(this.goodsList)
+            // console.log(this.goodsList)
+        }),
+        axios.get("https://apim.restful.5lux.com.cn/good/brand_detail/?id=9769")
+        .then((data)=>{
+            console.log(data)
         })
     }
 }

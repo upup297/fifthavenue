@@ -1,5 +1,5 @@
 export default {
-    path:"/detail/:id",
+    path:"/detail/:ad_id",
     component:()=>import("views/detail"),
     name:"detail"
 }

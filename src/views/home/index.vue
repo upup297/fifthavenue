@@ -24,18 +24,19 @@
     <!-- 上新 -->
         <div class="fun_nav">
             <ul>
-                <router-link to="/sea" tag="li" v-for="(item,index) in funNavs" :key="index">
-                    <i class="iconfont" v-html="item.icon"></i>
-                    <span>{{item.text}}</span>
+                <router-link to="/sea" tag="li" v-for="(item,index) in this.funNavs" :key="index">
+                    <!-- <i>{{item.ad_code}}</i> -->
+                    <img :src="item.ad_code">
+                    <span>{{item.ad_name}}</span>
                 </router-link>
             </ul>
         </div> 
     <!-- Burberry -->
         <div class="adv">
             <ul>
-                <li v-for="(item,index) in dataa" :key="index">
+                <router-link :to="'/detail/'+item.ad_id" tag="li" v-for="(item,index) in dataa" :key="index">
                     <img :src="item.ad_code">
-                </li>
+                </router-link>
             
             </ul>
         </div>
@@ -97,30 +98,8 @@ export default {
       banners: [],
       dataa:[],
       register:[],
+     funNavs:[],
      
-      funNavs: [
-        {
-          icon: "&#xe602;",
-          text: "上新",
-        //   path: "/home"
-        },
-        {
-          icon: "&#xe602;",
-          text: "海外馆",
-        },
-        {
-          icon: "&#xe602;",
-          text: "值得买",
-        },
-        {
-          icon: "&#xe602;",
-          text: "闪购",
-        },
-        {
-          icon: "&#xe602;",
-          text: "品牌",
-        }
-      ]
     };
   },
 
@@ -143,7 +122,8 @@ export default {
      axios.get("https://apim.restful.5lux.com.cn//index/index_button")
      .then(data=>data.data)
      .then(data=>{
-        //  console.log(data.data.list)
+        this.funNavs = data.data.list
+        //  console.log(this.funNavs)
      })
     axios.get("https://apim.restful.5lux.com.cn/index/index_slider")
 
@@ -267,7 +247,7 @@ export default {
 }
 .fun_nav {
   width: 100%;
-  height: 0.75rem;
+  height: 0.70rem;
   background: #fff;
 }
 .fun_nav ul li{
@@ -287,12 +267,13 @@ export default {
     margin-top: 0.15rem;
 }
 .fun_nav ul li span{
-    color: #7e8c8d
+    color: #7e8c8d;
+    margin-top: 0.05rem;
 }
 
-.fun_nav ul li i{
-    font-size: 22px;
-    color: #7e8c8d
+.fun_nav ul li img{
+    width: 30%;
+    height: 30%;
 }
 
 .adv{
