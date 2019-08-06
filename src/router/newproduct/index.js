@@ -1,5 +1,9 @@
 export default {
     path:"/newproduct",
     component:()=>import("views/newproduct"),
-    name:"Newproduct"
+    name:"Newproduct",
+    meta:{
+        tabBar:false,
+        auth:false
+    }
 }

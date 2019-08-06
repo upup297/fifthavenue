@@ -1,7 +1,7 @@
 export default {
-    path:"/sea",
-    component:()=>import("views/sea"),
-    name:"sea",
+    path:"/news",
+    component:()=>import("views/news"),
+    name:"news",
     meta:{
         tabBar:false,
         auth:false

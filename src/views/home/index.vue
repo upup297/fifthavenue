@@ -1,17 +1,21 @@
 <template>
   <div class="con">
       <!-- 顶部 -->
-    <div class="top">
+   <!--  <div :class="backTop==true ? 'backTo':''"><i class="iconfont icon-fanhuidingbu"></i></div> -->
+    <div class="header"  :class="navBarFixed == true ? 'navBarWrap' :''">
+        <!-- <div>上新</div> -->
+    </div>
+    <div class="top" :style="style">
       <div class="search">
         <i class="iconfont icon-8"></i>
         <div class="input">5LUX.COM</div>
       </div>
-
       <i class="iconfont icon-bao1">
         <i class="s">1</i>
       </i>
     </div>
-    <div class="warp">
+  
+    <div class="warp" >
     <!-- 轮播图 -->
         <div class="swiper swiper-container">
             <div class="swiper-wrapper">
@@ -24,7 +28,11 @@
     <!-- 上新 -->
         <div class="fun_nav">
             <ul>
-                <router-link to="/sea" tag="li" v-for="(item,index) in this.funNavs" :key="index">
+              <!--  :to="'/sea/'+item.ad_link" -->
+                <router-link  v-for="(item,index) in this.funNavs" :key="index"
+                 tag="li" to="/sea"
+                
+                 >
                     <!-- <i>{{item.ad_code}}</i> -->
                     <img :src="item.ad_code">
                     <span>{{item.ad_name}}</span>
@@ -34,9 +42,15 @@
     <!-- Burberry -->
         <div class="adv">
             <ul>
-                <router-link :to="'/detail/'+item.ad_id" tag="li" v-for="(item,index) in dataa" :key="index">
+               <!--  <router-link to="/detail" tag="li" v-for="(item,index) in dataa" :key="index">
                     <img :src="item.ad_code">
-                </router-link>
+                </router-link> -->
+                 <li to="/detail"  v-for="(item,index) in dataa" 
+                 :key="index"
+                 @click="hanleToDetail(item.ad_id,item.ad_name)"
+                 >
+                    <img :src="item.ad_code">
+                 </li>
             
             </ul>
         </div>
@@ -88,9 +102,13 @@
   </div>
 </template>
 <script>
+import {index_button_api,columu_recommend_api,index_slider_api,other_advert_api} from 'api/home'
+// import {index_button_api} from 'api/home'
 import Swiper from "swiper";
+import _ from 'lodash';
 import "../../../node_modules/swiper/dist/css/swiper.min.css";
 import axios from "axios";
+import BScroll from 'better-scroll'
 export default {
   name: "Home",
   data() {
@@ -98,12 +116,20 @@ export default {
       banners: [],
       dataa:[],
       register:[],
-     funNavs:[],
-     
+      funNavs:[],
+      style: {},
+      opacity: 0,
+      offsetTop:0,
+      str:""
+      // list:["上新","海外馆",'闪购',"品牌","专柜自提"]
     };
   },
 
   methods: {
+     hanleToDetail(ad_id,ad_name){
+       this.$router.push({name:"detail",params:{ad_id,ad_name}})
+        // console.log(111,ad_id)
+      },
     initBanner() {
       new Swiper(".swiper-container", {
         autoplay: {
@@ -114,55 +140,93 @@ export default {
           el: ".swiper-pagination"
         }
       });
-    }
+    },
+    handleScroll:_.throttle( function () {
+        var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+        if (scrollTop > 49) {
+          this.backTop = true
+          this.navBarFixed = true
+        }else{
+          this.backTop = false
+          this.navBarFixed = false
+        }
+        this.opacity = Math.abs(Math.round(scrollTop)) / 250;
+        this.style = {background: `rgba(0, 0, 0,${this.opacity})`}
+      },100),
+      destroyed () {
+        window.removeEventListener('scroll', this.handleScroll); // 离开页面 关闭监听 不然会报错
+      },
+     
+      // hidemenu() {
+      //   let scrollTop =
+      //     window.pageYOffset ||
+      //     document.documentElement.scrollTop ||
+      //     document.body.scrollTop;
+      //   //当滚动超过50时，实现吸顶效果（导航高度为50）
+      //   if (scrollTop > 49) {
+      //     this.navBarFixed = true
+      //   }else{
+      //     this.navBarFixed = false
+      //   }
+      // },
+
+
+
   },
-  created() {
+  async created() {
     // console.log(this);
-
-     axios.get("https://apim.restful.5lux.com.cn//index/index_button")
-     .then(data=>data.data)
-     .then(data=>{
-        this.funNavs = data.data.list
-        //  console.log(this.funNavs)
-     })
-    axios.get("https://apim.restful.5lux.com.cn/index/index_slider")
-
-      .then(data => data.data)
-      .then(data => {
-        this.banners = data.data;
-        this.$nextTick(() => {
+      let data2 = await index_button_api()
+      this.funNavs = data2.data.list
+   
+      let data1 = await index_slider_api()
+      this.banners = data1.data;
+       this.$nextTick(() => {
           this.initBanner();
         });
-      })
-      .catch(err => {
-        console.log(err)
-      });
 
-     axios.get("https://apim.restful.5lux.com.cn//index/columu_recommend")
-     .then(data=>data.data)
-     .then(data=>{
-         this.dataa = data.data
-        //  console.log(data.data)
-     })
-
-      axios.get("https://apim.restful.5lux.com.cn/index/other_advert")
-     .then(data=>data.data)
-     .then(data=>{
-         this.register = data.data
-     })
-
-     /* axios.get("https://apim.restful.5lux.com.cn/index/other_advert")
-     .then(data=>data.data)
-     .then(data=>{
-         this.data = data.data
-         console.log(this.data.vip_member)
-     }) */
+  
+     let data = await columu_recommend_api()
+     this.dataa = data.data
+     console.log(this.dataa)
+   /*  for(var i=0;<this.dataa.ad_link){
+      
+    }  */
+    var obj = this.dataa
+    for(var i=0;i<obj.length;i++){
+      
+    }
+    //  var str = this.dataa[0].ad_link
+    //  console.log(str);
+    //  var arr = [];
+    //  /* http://www.5lux.com/brand/detail/12 */
+    //  arr = str.split("/")
+    //  console.log(arr[5])
     
+
+    
+     let data3 = await other_advert_api()
+     this.register = data3.data
+  },
+  mounted(){
+      this.offsetTop = document.querySelector('.top').offsetTop;
+      // 开启滚动监听
+      window.addEventListener('scroll', this.handleScroll);
+     
   }
 };
 </script>
 
 <style>
+
+.navBarWrap {
+  width: 100%;
+  height: 0.39rem;;
+    position: fixed;
+    top: 0.44rem;
+    z-index: 999;
+    background: #fff;
+   
+  }
 
 .top {
   width: 100%;
@@ -229,35 +293,35 @@ export default {
 .warp{
     padding-bottom: 0.5rem;
 }
-.swiper-container {
+.warp .swiper-container {
   /* top:0.44rem; */
   width: 100%;
   height: 4.12rem;
 }
-.swiper-slide {
+.warp .swiper-slide {
   text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.swiper-slide > img {
+.warp .swiper-slide > img {
   width: 100%;
   height: 4.12rem;
   display: block;
 }
-.fun_nav {
+.warp .fun_nav {
   width: 100%;
   height: 0.70rem;
   background: #fff;
 }
-.fun_nav ul li{
+.warp .fun_nav ul li{
      width: 100%;
     height: 100%
 }
-.fun_nav ul{
+.warp .fun_nav ul{
     display: flex;
 }
-.fun_nav ul li{
+.warp .fun_nav ul li{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -266,84 +330,84 @@ export default {
     color: #ccc;
     margin-top: 0.15rem;
 }
-.fun_nav ul li span{
+.warp .fun_nav ul li span{
     color: #7e8c8d;
     margin-top: 0.05rem;
 }
 
-.fun_nav ul li img{
+.warp .fun_nav ul li img{
     width: 30%;
     height: 30%;
 }
 
-.adv{
+.warp .adv{
    
 }
-.adv ul{
+.warp .adv ul{
      width: 100%;
     height: 2.74rem;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between
 }
-.adv li{
+.warp .adv li{
     width: 49%;
     margin-bottom: 7px;
     float: left;
 }
-.adv li img{
+.warp .adv li img{
     width: 100%;
 }
-.content{
+.warp .content{
 
 }
-.content .new_register{
+.warp .content .new_register{
     margin-bottom: 10px;
     position: relative
 }
-.content .new_register img{
+.warp .content .new_register img{
         width: 100%;
     vertical-align: top;
 }
-.content .new_register .resgister_new{
+.warp .content .new_register .resgister_new{
     width: 100%;
     padding: 10px 3.5px;
     background: #fff;
 }
-.content .new_register .resgister_new ul{
+.warp .content .new_register .resgister_new ul{
     width: 100%;
     display: flex;
      flex-direction: row;
     justify-content: space-between;
 }
-.content .new_register .resgister_new ul li{
+.warp .content .new_register .resgister_new ul li{
    
      display: flex;
      flex-direction: row;
     justify-content: space-between;
         
 }
-.content .new_register .resgister_new ul li img{
+.warp .content .new_register .resgister_new ul li img{
         width: 0.85rem;
         height: 0.85rem;
 }
-.content .hook{
+.warp .content .hook{
     width: 100%;
     height: 4rem;
     /* background: #ccc; */
 }
-.content .hook img{
+.warp .content .hook img{
     width: 100%;
     height: 2.93rem;
 }
-.content .hook div:nth-child(2){
+.warp .content .hook div:nth-child(2){
     width: 100%;
     height: 1.07rem;
     background: #fff;
     padding: 18px 20px 20px;
     
 }
-.content .hook div:nth-child(2) strong{
+.warp .content .hook div:nth-child(2) strong{
     font-family: \\9ED1\4F53;
     font-weight: 700;
     display: block;
@@ -356,7 +420,7 @@ export default {
     text-overflow: ellipsis;
     overflow: hidden;
 }
-.content .hook div:nth-child(2) p{
+.warp .content .hook div:nth-child(2) p{
     font-family: \\9ED1\4F53;
     display: -webkit-box;
     -webkit-line-clamp: 2;

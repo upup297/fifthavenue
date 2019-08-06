@@ -51,17 +51,32 @@
             </div>
 
            <div class="fashion">
-                  <!--  <span></span>
-                   <span>正在流行</span> -->
+                   <span></span>
+                   <span>正在流行</span>
+                   <span>
+                       <img src="../../../public/more.png">
+                   </span>
            </div>
            <div class="chaoliu">
-               <div class="top"></div>
+               <div class="top">
+                   <span></span>
+                   <span>正在流行</span>
+                   <span>
+                       <img src="../../../public/more.png">
+                   </span>
+               </div>
                <a href="http://m.5lux.com/promote/special/2521">
                <img src="http://img550.5lux.com.cn/2017/07/07/ij/149940786287_750x370.jpg"></a>
            </div>
            
            <div class="remai">
-               <div class="top"></div>
+               <div class="top">
+                   <span></span>
+                   <span>正在流行</span>
+                   <span>
+                       <img src="../../../public/more.png">
+                   </span>
+               </div>
                <ul>
                    <router-link to="/detail" tag="li" v-for="(item,index) in this.list[5].list" :key="index">
                        <img :src="item.ad_code">
@@ -80,7 +95,6 @@ export default {
     data(){
         return{
             list:[],
-            // num:10
         }
     },
     methods:{
@@ -95,7 +109,7 @@ export default {
             this.list = data.data
             // console.log(this.list[1].list)
             // this.list = data.data[1].list
-             console.log(data.data)
+            //  console.log(data.data)
         })
     }
 }
@@ -325,14 +339,47 @@ export default {
 .con .fashion{
     width: 100%;
     height: 0.36rem;
-    background: #ccc;
+    /* background: #ccc; */
     margin-bottom: 0.1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.con .fashion span:nth-child(1){
+    width: 3px;
+    height: 22px;
+    margin: 7px 0;
+    background: #9b885f;
+    display: inline-block;
+}
+.con .fashion span:nth-child(2){
+    width: 50%;
+    font-family: \\9ED1\4F53;
+    font-size: 14px;
+    color: #333;
+    margin-left: 1px;
+    display: inline-block;
+    vertical-align: top;
+    height: 36px;
+    line-height: 36px;
+    
+}
+.con .fashion span:nth-child(3){
+    width: 36%;
+
+}
+.con .fashion span:nth-child(3) img{
+    width: 90%;
+    height: 0.36rem;
+    margin-right: 0.2rem;
 }
 .con .chaoliu{
     width: 100%;
     height: 2.22rem;
-    background: skyblue
+    /* background: skyblue */
 }
+
+
 .con .chaoliu img{
     width: 100%;
     height: 1.86rem;
@@ -340,8 +387,41 @@ export default {
 .con .chaoliu .top{
     width: 100%;
     height: 0.36rem;
-    background: #ccc;
+    /* background: salmon; */
+     display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
+
+.con .chaoliu .top span:nth-child(1){
+    width: 3px;
+    height: 22px;
+    margin: 7px 0;
+    background: #9b885f;
+    display: inline-block;
+}
+.con .chaoliu .top span:nth-child(2){
+    width: 50%;
+    font-family: \\9ED1\4F53;
+    font-size: 14px;
+    color: #333;
+    margin-left: 1px;
+    display: inline-block;
+    vertical-align: top;
+    height: 36px;
+    line-height: 36px;
+    
+}
+.con .chaoliu .top span:nth-child(3){
+    width: 36%;
+
+}
+.con .chaoliu .top span:nth-child(3) img{
+    width: 90%;
+    height: 0.36rem;
+    margin-right: 0.2rem;
+}
+
 .con .remai{
     margin-top: 0.1rem;
     width: 100%;
@@ -350,7 +430,39 @@ export default {
 .con .remai .top{
     width: 100%;
     height: 0.36rem;
-    background: #ccc;
+    /* background: #ccc; */
+     display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.con .remai .top span:nth-child(1){
+    width: 3px;
+    height: 22px;
+    margin: 7px 0;
+    background: #9b885f;
+    display: inline-block;
+}
+.con .remai .top span:nth-child(2){
+    width: 50%;
+    font-family: \\9ED1\4F53;
+    font-size: 14px;
+    color: #333;
+    margin-left: 1px;
+    display: inline-block;
+    vertical-align: top;
+    height: 36px;
+    line-height: 36px;
+    
+}
+.con .remai .top span:nth-child(3){
+    width: 36%;
+
+}
+.con .remai .top span:nth-child(3) img{
+    width: 90%;
+    height: 0.36rem;
+    margin-right: 0.2rem;
 }
 .con .remai ul{
     width: 100%;

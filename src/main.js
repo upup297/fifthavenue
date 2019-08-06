@@ -5,7 +5,9 @@ import store from './store'
 import '../public/common.css'
 import '../public/css/iconfont/iconfont.css'
 import Swiper from 'swiper'
-import axios from 'axios'
+import axios from 'axios';
+import Mint from 'mint-ui';
+Vue.use(Mint);
 Vue.config.productionTip = false
 
 new Vue({

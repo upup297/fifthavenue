@@ -5,7 +5,10 @@ module.exports = {
         proxy:{
             "/api":{
                 target:"https://apim.restful.5lux.com.cn/",
-                changeOrigin:true
+                changeOrigin:true,
+                pathRewrite:{
+                    "^/api":""
+                }
             }
         }
     },
@@ -21,6 +24,8 @@ module.exports = {
                 "utils":path.join(__dirname,"./src/utils"),
                 "router":path.join(__dirname,"./src/router"),
                 "store":path.join(__dirname,"./src/store"),
+                "api":path.join(__dirname,"./src/api"),
+                
             }
         }
     }

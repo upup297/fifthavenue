@@ -8,6 +8,8 @@ import mime from './mime'
 import sea from './sea'
 import deatil from './detail'
 import newproduct from './newproduct'
+import news from './news'
+import deatilpage from './detailpage'
 Vue.use(VueRouter)
 
 export default new VueRouter({
@@ -23,6 +25,8 @@ export default new VueRouter({
     mime,
     sea,
     deatil,
-    newproduct
+    newproduct,
+    news,
+    deatilpage
   ]
 })

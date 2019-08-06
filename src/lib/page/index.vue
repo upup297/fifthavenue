@@ -21,32 +21,49 @@
                 </li>
                 
             </ul>
-            <div class="cont">
-                <div></div>
-                <div></div>
-                <div></div>
-            </div>
+            
         </div>
-      
-      
+        <div class="goods_list">
+            <ul>
+                <li v-for="(item,index) in goodsList" :key="index">
+                    <div>
+                        <img :src="item.big_thumb">
+                    </div>
+                    <div>
+                        <div class="ms">
+                            <p>{{item.brand_enname}}</p>
+                            <p>{{item.brand_cnname}}</p>
+                            <p>
+                                <i>￥{{item.promote_price}}</i>
+                                <em>￥{{item.market_price}}</em>
+                               
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                
+                
+            </ul>
+        </div>
         
     </div>
 </template>
 <script>
+import axios from 'axios'
 export default {
-    name:"Servers"
+    name:"Detail",
+   
 }
 </script>
-<style scoped>
+<style>
 .detail{
     width: 100%;
     height: 0.44rem;
     position: fixed;
     top: 0;
-    font-weight: 400;
-    font-size: 16px;
-    color: #000
-   
+    background: #fff;
+    z-index: 2;
+    border-bottom: 1px solid #f5f5f5;
 }
 .detail>i{
     display: inline;
@@ -96,15 +113,5 @@ export default {
     margin:0 0.35rem 0 0.355rem;
 }
 
-.tab .cont>div:nth-child(1){
-    width: 100%;
-    height: 2.28rem;
-    background: #000;
-}
-.tab .cont>div:nth-child(2){
 
-}
-.tab .cont>div:nth-child(3){
-    
-}
 </style>

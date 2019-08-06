@@ -3,7 +3,7 @@
          <div class="detail">
                 <i class="iconfont icon-forward" @click="handle"></i>
             <div>
-				Louis Vuitton/LV路易.威登
+				{{ad_name}}1111
             </div>
         </div>
         <div class="tab">
@@ -25,7 +25,7 @@
         </div>
         <div class="goods_list">
             <ul>
-                <li v-for="(item,index) in goodsList" :key="index">
+                <router-link  v-for="(item,index) in goodsList" :key="index" to="/detailpage" tag="li">
                     <div>
                         <img :src="item.big_thumb">
                     </div>
@@ -40,7 +40,7 @@
                             </p>
                         </div>
                     </div>
-                </li>
+                </router-link>
                 
                 
             </ul>
@@ -50,8 +50,11 @@
 </template>
 <script>
 import axios from 'axios'
+/* import {aa,bb} from "api/home" */
+
 export default {
     name:"Detail",
+  /*   props:["ad_id","ad_name"], */
     methods:{
         handle(){
             this.$router.go(-1) 
@@ -59,21 +62,32 @@ export default {
     },
     data(){
         return{
-            goodsList:[]
+            goodsList:[],
+           
         }
     },
+    /* async */
     created(){
-        console.log(this)
-        axios.get("https://apim.restful.5lux.com.cn/good/brand_detail/?id=47&cata_id=undefined")
-        .then((data)=>{
-            this.goodsList = data.data.data.goods_list
-            // console.log(this.goodsList)
-        }),
-        axios.get("https://apim.restful.5lux.com.cn/good/brand_detail/?id=9769")
-        .then((data)=>{
-            console.log(data)
-        })
-    }
+       
+       axios.get("https://apim.restful.5lux.com.cn/good/brand_detail/?id=12&cata_id=0")
+       .then((data)=>{
+           this.goodsList = data.data.data.goods_list
+           console.log(data.data.data.goods_list)
+       })
+
+      
+       /*  let data = await aa() */
+        //console.log(data)
+       /*  let datab = await bb()
+        console.log(datab.data[1].ad_link)
+         */
+        
+    },
+   /*  data(){
+        return{
+            listb:[]
+        }
+    } */
 }
 </script>
 <style>
