@@ -1,8 +1,8 @@
 
 import http from "utils/http.js"
-/* export const aa = (id=12,cata_id=0)=>http("get","/api/good/brand_detail/",{id,cata_id})
+/*  export const aa = (id=12,cata_id=0)=>http("get","/api/good/brand_detail/",{id,cata_id}) */
 
-export const bb=()=>http("get","/api/index/columu_recommend",{}) */
+/*export const bb=()=>http("get","/api/index/columu_recommend",{}) */
 
 
 /* 上新 */

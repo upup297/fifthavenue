@@ -5,7 +5,8 @@ export default {
     meta:{
         tabBar:true,
         auth:false
-    }
+    },
+    // props:true
     /* children:[
         {
             path:"/accesories",

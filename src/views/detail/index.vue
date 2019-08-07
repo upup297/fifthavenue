@@ -75,7 +75,11 @@ export default {
            console.log(data.data.data.goods_list)
        })
 
-      
+    //    axios.get("https://apim.restful.5lux.com.cn/good/brand_detail")
+    //    .then((data)=>{
+    //     //    this.goodsList = data.data.data.goods_list
+    //        console.log(data)
+    //    })
        /*  let data = await aa() */
         //console.log(data)
        /*  let datab = await bb()

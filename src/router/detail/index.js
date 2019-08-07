@@ -1,10 +1,10 @@
 export default {
-    path:"/detail/:ad_id/:ad_name",
+    path:"/detail",
     component:()=>import("views/detail"),
     name:"detail",
     meta:{
         tabBar:false,
         auth:false
     },
-    props:true
+   
 }

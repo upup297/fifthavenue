@@ -45,9 +45,9 @@
                <!--  <router-link to="/detail" tag="li" v-for="(item,index) in dataa" :key="index">
                     <img :src="item.ad_code">
                 </router-link> -->
-                 <li to="/detail"  v-for="(item,index) in dataa" 
+                 <li  v-for="(item,index) in dataa" 
                  :key="index"
-                 @click="hanleToDetail(item.ad_id,item.ad_name)"
+                 @click="hanleToDetail(item.ad_name)"
                  >
                     <img :src="item.ad_code">
                  </li>
@@ -103,7 +103,7 @@
 </template>
 <script>
 import {index_button_api,columu_recommend_api,index_slider_api,other_advert_api} from 'api/home'
-// import {index_button_api} from 'api/home'
+
 import Swiper from "swiper";
 import _ from 'lodash';
 import "../../../node_modules/swiper/dist/css/swiper.min.css";
@@ -126,9 +126,12 @@ export default {
   },
 
   methods: {
-     hanleToDetail(ad_id,ad_name){
-       this.$router.push({name:"detail",params:{ad_id,ad_name}})
-        // console.log(111,ad_id)
+     hanleToDetail(){
+
+      /*   for(let i =0;i<this.dataa[i].length;i++){
+           alert(this.dataa[i].ad_link.split("/")[5])
+       } */
+       this.$router.push({name:"detail",params:{}})
       },
     initBanner() {
       new Swiper(".swiper-container", {
@@ -180,29 +183,24 @@ export default {
    
       let data1 = await index_slider_api()
       this.banners = data1.data;
-       this.$nextTick(() => {
+      this.$nextTick(() => {
           this.initBanner();
-        });
+      });
 
   
      let data = await columu_recommend_api()
      this.dataa = data.data
-     console.log(this.dataa)
-   /*  for(var i=0;<this.dataa.ad_link){
-      
-    }  */
-    var obj = this.dataa
-    for(var i=0;i<obj.length;i++){
-      
-    }
-    //  var str = this.dataa[0].ad_link
-    //  console.log(str);
-    //  var arr = [];
-    //  /* http://www.5lux.com/brand/detail/12 */
-    //  arr = str.split("/")
-    //  console.log(arr[5])
-    
 
+
+    for(let i =0;i<this.dataa.length;i++){
+       
+
+       this.dataa[i].ad_link.split("/")[5]
+       console.log(this.dataa[i].ad_link.split("/")[5])
+     
+
+     }
+    
     
      let data3 = await other_advert_api()
      this.register = data3.data
